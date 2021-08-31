@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import {
   concatGameRecord,
-  concatRangking,
+  concatRanking,
   insertGameRecord,
 } from "../../src/store/index";
 import { createNumber } from "../../util/CreateNumber";
@@ -22,7 +22,7 @@ const InputNumber = () => {
   const winGame = () => {
     let player: string = prompt("승리하였습니다!\n닉네임: ") || "익명";
     dispatch(insertGameRecord(""));
-    dispatch(concatRangking({ score: playCount, nickName: player }));
+    dispatch(concatRanking({ score: playCount, nickName: player }));
     router.push("/");
   };
 
@@ -56,7 +56,9 @@ const InputNumber = () => {
   return (
     <InputNumberWrap>
       <Input onChange={onChangeHandler} />
-      <Button onClick={setData}>버튼</Button>
+      <Button heightSize={32} onClick={setData}>
+        확인
+      </Button>
     </InputNumberWrap>
   );
 };
@@ -66,4 +68,5 @@ export default InputNumber;
 const InputNumberWrap = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 24px;
 `;

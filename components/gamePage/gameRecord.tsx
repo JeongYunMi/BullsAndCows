@@ -20,6 +20,8 @@ export default GameRecord;
 
 const RecordWrap = styled.div`
   border: solid 1px black;
+  height: auto;
+  width: 380px;
 `;
 
 const RecordWrapTitle = styled.div`
