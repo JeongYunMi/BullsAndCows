@@ -9,6 +9,7 @@ import {
   insertGameRecord,
 } from "../../src/store/index";
 import { createNumber } from "../../util/CreateNumber";
+import { CheckNumber } from "../../util/CheckNumber";
 
 const InputNumber = () => {
   const router = useRouter();
@@ -27,30 +28,22 @@ const InputNumber = () => {
 
   const setData = () => {
     setPlayCount((prev) => prev + 1);
-    let st = 0;
-    let b = 0;
-    let out = 4;
-    for (let i = 0; i < 4; ++i) {
-      for (let j = 0; j < 4; ++j) {
-        if (resultNumber.current[i] === value[j]) {
-          if (i === j) {
-            st += 1;
-            out -= 1;
-          } else {
-            b += 1;
-            out -= 1;
-          }
-        }
-      }
-    }
-
-    dispatch(
-      concatGameRecord(
-        value + " - ST: " + st + "개  B: " + b + "개  O:" + out + "개<br>"
-      )
-    );
-    if (st == 4) {
+    const temp = CheckNumber(resultNumber.current, value);
+    if (temp.st == 4) {
       winGame();
+    } else {
+      dispatch(
+        concatGameRecord(
+          value +
+            " - ST: " +
+            temp.st +
+            "개  B: " +
+            temp.b +
+            "개  O:" +
+            temp.out +
+            "개<br>"
+        )
+      );
     }
     console.log("ssdd");
   };

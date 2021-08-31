@@ -43,11 +43,15 @@ const initialValue: data = {
 };
 
 //리듀서 생성
-export function reducer(state: data = initialValue, action: ActionType): data {
+export function reducer(state: data = initialValue, action: ActionType) {
   switch (action.type) {
     case CONCAT_GAMERECORD:
-      state.gamerecordData += action.payload;
-      return Object.assign({}, state);
+      return {
+        ...state,
+        ...{
+          gamerecordData: (state.gamerecordData += action.payload),
+        },
+      };
     case INSERT_GAMERECORD:
       state.gamerecordData = action.payload;
       return Object.assign({}, state);
@@ -70,3 +74,5 @@ export function reducer(state: data = initialValue, action: ActionType): data {
       return state;
   }
 }
+
+export type RootState = ReturnType<typeof reducer>;

@@ -1,30 +1,22 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-
-export type rangkingOb = {
-  score: number;
-  nickName: string;
-};
-export type data = {
-  gamerecordData: string;
-  rangkingData: rangkingOb[];
-};
+import { RootState } from "../../src/store";
+import { RangkingRecordText } from ".";
 
 const RangkingRecord = () => {
-  const state: data = useSelector((e) => e) || null;
+  const state = useSelector((e: RootState) => e);
   console.log("rangking:", state);
 
   if (state.rangkingData.length) {
     return (
       <RangkingWrap>
         <RangkingWrapTitle>순위 기록</RangkingWrapTitle>
-        {state.rangkingData.map((e) => (
-          <>
-            <span>
-              닉네임: {e.nickName} 점수:{e.score}{" "}
-            </span>
-            <br />
-          </>
+        {state.rangkingData.map((e, index) => (
+          <RangkingRecordText
+            key={index}
+            nickName={e.nickName}
+            score={e.score}
+          />
         ))}
       </RangkingWrap>
     );
